@@ -21,8 +21,24 @@ function pressKey(num) {
         inputCode += num;
         document.getElementById('pass-display').innerText = inputCode;
     }
+    
+    // ตรวจสอบเมื่อพิมพ์ครบ 4 ตัว
     if (inputCode.length === 4) {
-        if (inputCode === secretCode) {
+        // เช็กว่ารหัสที่พิมพ์มา มีอยู่ใน userDatabase หรือไม่
+        if (userDatabase[inputCode]) {
+            const currentUser = userDatabase[inputCode];
+            
+            // แสดงหน้าต่างต้อนรับ (เปิดใช้งานถ้าต้องการ หรือเอาออกถ้าไม่ใช้)
+            alert("ยินดีต้อนรับคุณ " + currentUser.name);
+            
+            // นำข้อความอวยพรเฉพาะของคนนั้น ไปใส่ในหน้าแสดงข้อความ
+            // (เช็กไอดีใน HTML ของคุณด้วยนะว่าใช้ 'message-text' หรือชื่ออื่น)
+            const msgElement = document.getElementById('message-text');
+            if (msgElement) {
+                msgElement.innerText = currentUser.message;
+            }
+
+            // ย้ายหน้าไปหน้าปักเทียน
             document.getElementById('password-page').classList.remove('active');
             document.getElementById('candle-page').classList.add('active');
         } else {
@@ -71,3 +87,4 @@ function openLetter(event) {
     document.getElementById('candle-page').classList.remove('active');
     document.getElementById('message-page').classList.add('active');
 }
+// asd
