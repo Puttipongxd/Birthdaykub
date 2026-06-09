@@ -1,0 +1,326 @@
+/* ตั้งค่าพื้นฐาน */
+* { 
+    box-sizing: border-box; 
+    -webkit-tap-highlight-color: transparent; /* ลบแถบสีเวลาจิ้มบนมือถือ */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Mali', cursive;
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* กรอบจำลองหน้าจอมือถือ */
+.phone-container {
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    background: #fbfcff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* การจัดการเลเยอร์แต่ละหน้า */
+.layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: none; /* ซ่อนหน้าไว้ก่อน */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+/* เมื่อหน้าไหนมีคลาส active ให้แสดงออกมา */
+.layer.active { 
+    display: flex; 
+    animation: slideUp 0.5s ease-out; 
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ส่วนหัวและตัวหนังสือ */
+.title { 
+    color: #ff8686; 
+    margin-bottom: 20px; 
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+/* ... โค้ดอื่นๆ ด้านบน ... */
+
+.display { 
+    font-size: 2rem; 
+    letter-spacing: 5px; 
+    margin: 10px 0;
+    background: #f3f0ff; 
+    padding: 10px 40px; 
+    border-radius: 20px;
+    color: #ff8686;
+    min-width: 150px; 
+    height: 60px;     
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hint-text {
+    font-size: 1rem;
+    color: #ff8686;
+    text-align: center;
+    margin: 15px 0;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+/* แผงปุ่มกด */
+.keypad { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
+    margin-top: 10px;
+}
+
+.keypad button {
+    width: 65px; 
+    height: 65px; 
+    border-radius: 50%;
+    border: none; 
+    background: #f3f0ff; 
+    font-size: 1.2rem; 
+    cursor: pointer;
+    transition: 0.2s;
+    color: #555;
+}
+
+.keypad button:active { 
+    background: #dcd0ff; 
+    transform: scale(0.9);
+}
+
+/* โซนเค้กและการปักเทียน */
+/* แก้ไขพื้นที่ปักเทียนให้ทับบนรูป */
+/* ส่วนที่คุมพื้นที่รูปเค้ก */
+/* ฟิกซ์กรอบของเค้กให้เป็นศูนย์กลาง */
+/* ... (ส่วนบนคงเดิมถึง keypad) ... */
+
+/* โซนเค้กและการปักเทียน */
+.cake-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin: 20px auto;
+    transition: transform 0.2s;
+}
+
+.cake-container:active { 
+    transform: scale(0.98); 
+}
+
+/* ปรับขนาดเค้กหน้าแรก */
+.main-cake {
+    width: 250px; /* ขยายให้ใหญ่ขึ้น */
+    height: auto;
+    border-radius: 20px;
+}
+
+/* ปรับขนาดเค้กหน้าปักเทียน */
+#cake-to-stick {
+    width: 280px; /* ขนาดใหญ่แบบในคลิป */
+    height: auto;
+    display: block;
+    border-radius: 20px;
+}
+
+#candle-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.candle-img {
+	position: absolute;
+	width: 10px; /* ปรับขนาดเป็น 10px ตามสั่งครับ */
+	height: auto;
+	/* ปรับฐานให้ปักลงบนเค้กพอดี */
+	transform: translate(-50%, -90%); 
+	pointer-events: none;
+	z-index: 10;
+	animation: candleSwing 1s infinite alternate ease-in-out;
+}
+
+@keyframes candleSwing {
+	from { transform: translate(-50%, -90%) rotate(-2deg); }
+	to { transform: translate(-50%, -90%) rotate(2deg); }
+}
+/* ... (ส่วนจดหมายคงเดิม) ... */
+.cake-container:active { 
+    transform: scale(0.95); 
+}
+
+.main-cake {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    margin: 10px auto;
+    border-radius: 20px;
+}
+
+#cake-to-stick {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    margin: 10px auto;
+    border-radius: 20px;
+}
+
+/* --- ส่วนของซองจดหมายและหน้าจดหมายใหม่ --- */
+.hidden { display: none; }
+
+/* ซองจดหมายที่ลอยบนเค้ก */
+#envelope-wrapper {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    z-index: 100;
+    text-align: center;
+}
+
+#envelope-wrapper.show {
+    transform: translateX(-50%) scale(1);
+    animation: floatEnvelope 2s infinite ease-in-out;
+}
+
+#envelope-img { width: 100px; } /* ปรับขนาดซองให้ชัดขึ้น */
+
+@keyframes floatEnvelope {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-20px); }
+}
+
+/* จัดตำแหน่งหน้าจดหมายให้กลางจอ */
+#message-page {
+    background-color: #ffcdd9;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#message-page.active { display: flex; }
+
+.envelope-container {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    margin-top: 100px; /* เว้นที่ให้จดหมายสไลด์ขึ้น */
+}
+
+.envelope-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #ffc2d1; /* สีซองด้านใน */
+    border-radius: 0 0 10px 10px;
+}
+
+/* ฝาพับด้านบน */
+.envelope-lid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 100px solid #d9eeff; /* สีฝาซอง */
+    transform-origin: top;
+    transition: transform 1s ease;
+    z-index: 4; /* อยู่หน้าสุดตอนปิด */
+}
+
+/* กระดาษจดหมาย */
+.letter-card {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    width: 280px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 2; /* อยู่หลังฝาซองด้านหน้า */
+    transition: transform 0.8s ease-in-out;
+    transition-delay: 0.5s; /* รอให้ฝาเปิดก่อนค่อยขึ้น */
+    text-align: center;
+}
+
+/* ฝาซองด้านหน้า (รูปตัว V ทับกระดาษ) */
+.envelope-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid #b3d9ff;
+    border-right: 150px solid #b3d9ff;
+    border-bottom: 100px solid #b3d9ff;
+    border-top: 100px solid transparent;
+    z-index: 3; /* ทับกระดาษไว้ครึ่งหนึ่ง */
+    border-radius: 0 0 10px 10px;
+}
+
+/* --- เมื่อหน้าจดหมายถูกเปิด (Active) --- */
+
+/* 1. ฝาซองพับเปิดขึ้น (ใช้ rotateX) */
+#message-page.active .envelope-lid {
+	transform: rotateX(180deg); 
+	z-index: 1; /* เมื่อเปิดแล้วให้ไปอยู่หลังกระดาษ */
+}
+
+/* 2. กระดาษสไลด์ขึ้นมาให้พอดีอ่าน */
+#message-page.active .letter-card {
+	transform: translateY(-130px); /* ลอยขึ้นมาหยุดในระยะที่มองเห็น */
+
+}
+
+/* ส่วนที่ใช้จัดการขนาดตัวหนังสือในจดหมาย */
+
+    .letter-header {
+    font-size: 18px;        /* ย่อขนาดหัวข้อ (🎂 สุขสันต์วันเกิด...) */
+    font-weight: bold;
+    color: #86ddff;
+    margin-bottom: 8px;
+}
+
+    .letter-body p {
+    font-size: 12px;        /* ย่อขนาดเนื้อความให้เล็กลงเหมือนในคลิป */
+    line-height: 2;       /* เพิ่มระยะห่างระหว่างบรรทัดให้อ่านง่าย */
+    color: #444;
+    margin: 4px 0;
+    text-align: center;       /* ปรับตําเเหน่ง */
+}
+
+/* ปรับขนาดรูปคู่ที่อยู่ในจดหมาย (ถ้ามี) */
+    .mini-photo {
+    width: 80%;
+    max-width: 120px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
