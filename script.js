@@ -1,6 +1,10 @@
 let inputCode = "";
-const secretCode = "1704";
-const secretCode = "1111";
+// เก็บรายชื่อและรหัสผ่านของแต่ละคนไว้ในตัวแปรเดียว
+const userDatabase = {
+    "1111": { name: "test1", message: "มีความสุขมากๆ นะ!" },
+    "2222": { name: "test2", message: "แฮปปี้เบิร์ดเดย์นะบี ขอให้สมหวังทุกเรื่อง!" },
+    "3333": { name: "test3", message: "HBD เว้ยเพื่อน ร่ำรวยๆ!" }
+};
 let candlesCount = 0;
 const maxCandles = 5;
 
