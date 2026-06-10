@@ -6,7 +6,7 @@ function getCurrentDateCode() {
     const day = String(today.getDate()).padStart(2, '0');
     const month = String(today.getMonth() + 1).padStart(2, '0'); 
     
-    // 🌟 [จุดแก้ที่ 1] เปลี่ยนจาก .slice(-2) เป็นดึงปีเต็ม 4 หลักมาเลย
+    // ดึงปีเต็ม 4 หลักมาใช้เลย
     const year = String(today.getFullYear()); 
     return `${day}${month}${year}`; 
 }
@@ -14,14 +14,13 @@ function getCurrentDateCode() {
 // สร้างและเก็บรหัสผ่านของวันนี้ไว้ในตัวแปร
 const todayPassword = getCurrentDateCode();
 
-// 2. ฐานข้อมูลผู้ใช้งาน (ใช้คำอวยพรแยกตามรหัสผ่าน)
+// 2. ฐานข้อมูลผู้ใช้งาน
 const userDatabase = {
-    // 💡 รหัส Realtime ของเจ้าของวันเกิด ณ ตอนนี้จะกลายเป็นรหัส 8 หลักตามวันปัจจุบันอัตโนมัติแล้วครับ เช่น 10062026
+    // 💡 ลบเครื่องหมายคอมมา (,) ตัวสุดท้ายที่เกินอยู่ออกแล้ว เพื่อป้องกัน Syntax Error ในเบราว์เซอร์เก่าๆ
     [todayPassword]: { 
         name: "เจ้าของวันเกิด 🎉", 
         message: "สุขสันต์วันเกิดปีนี้ 20 แล้วนะ ขอให้มีแต่สิ่งดีๆ เข้ามาในชีวิต ขอให้ปีนี้มีแต่รอยยิ้มนะ หวังว่าสิ่งนี้จะทำให้เธอยิ้มได้นะ :3" 
-    },
-
+    }
 };
 
 let candlesCount = 0;
@@ -36,13 +35,13 @@ const candlePositions = [
 ];
 
 function pressKey(num) {
-    // 🌟 [จุดแก้ที่ 2] ปรับข้อจำกัดการพิมพ์จาก < 6 เป็น < 8 หลัก
+    // ปรับข้อจำกัดการพิมพ์เป็น 8 หลัก
     if (inputCode.length < 8) {
         inputCode += num;
         document.getElementById('pass-display').innerText = inputCode;
     }
     
-    // 🌟 [จุดแก้ที่ 3] ตรวจสอบเมื่อพิมพ์ครบ 8 ตัว (เดิมเป็น 6 ตัว)
+    // ตรวจสอบเมื่อพิมพ์ครบ 8 ตัว
     if (inputCode.length === 8) {
         if (userDatabase[inputCode]) {
             const currentUser = userDatabase[inputCode];
@@ -59,7 +58,6 @@ function pressKey(num) {
         } else {
             alert("รหัสไม่ถูกต้อง!");
             inputCode = "";
-            // ตรงนี้เปลี่ยนเป็นอักษรพรางตา 8 ตัวให้เข้ากัน
             document.getElementById('pass-display').innerText = "********"; 
         }
     }
@@ -85,9 +83,9 @@ function addCandle(event) {
 
         const bottomHint = document.getElementById('bottom-hint');
         const hints = ["ปักอีกเล่มซิ", "ปักอีกนิด", "ใกล้แล้วๆ", "อันสุดท้ายเเย้ว"];
-        if(candlesCount < maxCandles) bottomHint.innerText = hints[candlesCount-1];
+        if (candlesCount < maxCandles) bottomHint.innerText = hints[candlesCount - 1];
 
-        if(candlesCount === maxCandles) {
+        if (candlesCount === maxCandles) {
             bottomHint.innerText = "ปักครบแล้ว! อธิษฐานแล้วเปิดซองจดหมายนะ";
             setTimeout(() => {
                 const env = document.getElementById('envelope-wrapper');
