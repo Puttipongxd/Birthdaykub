@@ -1,11 +1,13 @@
 let inputCode = "";
 
-// 1. ฟังก์ชันสร้างรหัสผ่านจากวันที่ปัจจุบัน (รูปแบบ วันเดือนปี เช่น 100626)
+// 1. ฟังก์ชันสร้างรหัสผ่านจากวันที่ปัจจุบัน (รูปแบบ วันเดือนปี ค.ศ. 4 หลัก เช่น 10062026)
 function getCurrentDateCode() {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // เดือนใน JS เริ่มจาก 0-11 เลยต้อง +1
-    const year = String(today.getFullYear()).slice(-2); // เอาแค่ 2 หลักท้ายของปี ค.ศ.
+    const month = String(today.getMonth() + 1).padStart(2, '0'); 
+    
+    // 🌟 [จุดแก้ที่ 1] เปลี่ยนจาก .slice(-2) เป็นดึงปีเต็ม 4 หลักมาเลย
+    const year = String(today.getFullYear()); 
     return `${day}${month}${year}`; 
 }
 
@@ -14,66 +16,58 @@ const todayPassword = getCurrentDateCode();
 
 // 2. ฐานข้อมูลผู้ใช้งาน (ใช้คำอวยพรแยกตามรหัสผ่าน)
 const userDatabase = {
-    // 💡 รหัส Realtime: ถ้าพิมพ์วันที่ปัจจุบัน ระบบจะคำนวณให้เองและดึงข้อความนี้ไปแสดง
+    // 💡 รหัส Realtime ของเจ้าของวันเกิด ณ ตอนนี้จะกลายเป็นรหัส 8 หลักตามวันปัจจุบันอัตโนมัติแล้วครับ เช่น 10062026
     [todayPassword]: { 
         name: "เจ้าของวันเกิด 🎉", 
         message: "สุขสันต์วันเกิดปีนี้ 20 แล้วนะ ขอให้มีแต่สิ่งดีๆ เข้ามาในชีวิต ขอให้ปีนี้มีแต่รอยยิ้มนะ หวังว่าสิ่งนี้จะทำให้เธอยิ้มได้นะ :3" 
     },
-    
-    // รหัสคงที่สำหรับเพื่อนคนอื่นๆ ให้เข้ามาดูคำอวยพรของตัวเอง
-    "111111": { name: "Eve", message: "มีความสุขมากๆ นะเจ้านกน้อย ขอให้ปีนี้เป็นปีที่ดี มีรอยยิ้มในทุกๆ วันเลย!" },
-    "222222": { name: "Fay", message: "แฮปปี้เบิร์ดเดย์นะบี ขอให้สมหวังทุกเรื่อง เรียนเก่งๆ งานปังๆ จ้า!" },
-    "333333": { name: "Boom", message: "HBD เว้ยเพื่อน! ร่ำรวยๆ ขอให้ได้แฟนหล่อๆ สวยๆ ตามที่หวังไว้" },
-    "444444": { name: "Toon", message: "สุขสันต์วันเกิดนะ! ขอให้สุขภาพแข็งแรง ไม่เจ็บไม่ไข้ มีเงินใช้ไม่ขาดมือ" },
-    "555555": { name: "Win", message: "แฮปปี้เบิร์ดเดย์! ขอให้โลกนี้ใจดีกับแกเยอะๆ คิดสิ่งใดก็ขอให้สมปรารถนา" }
+
 };
 
 let candlesCount = 0;
 const maxCandles = 5;
 
 const candlePositions = [
-    { left: 50, top: 38 }, // เล่มที่ 1: ตรงกลางเป๊ะ (เยื้องไปทางด้านหลังนิดหน่อย)
-    { left: 32, top: 40 }, // เล่มที่ 2: ฝั่งซ้าย (ขยับมาด้านหน้า)
-    { left: 67, top: 40 }, // เล่มที่ 3: ฝั่งขวา (ขยับมาด้านหน้า)
-    { left: 40, top: 35 }, // เล่มที่ 4: ฝั่งซ้าย (ขยับไปด้านหลัง)
-    { left: 60, top: 35 }  // เล่มที่ 5: ฝั่งขวา (ขยับไปด้านหลัง)
+    { left: 50, top: 38 },
+    { left: 32, top: 40 },
+    { left: 67, top: 40 },
+    { left: 40, top: 35 },
+    { left: 60, top: 35 }
 ];
 
 function pressKey(num) {
-    // ปรับข้อจำกัดการพิมพ์เป็น 6 หลัก
-    if (inputCode.length < 6) {
+    // 🌟 [จุดแก้ที่ 2] ปรับข้อจำกัดการพิมพ์จาก < 6 เป็น < 8 หลัก
+    if (inputCode.length < 8) {
         inputCode += num;
         document.getElementById('pass-display').innerText = inputCode;
     }
     
-    // ตรวจสอบเมื่อพิมพ์ครบ 6 ตัว
-    if (inputCode.length === 6) {
+    // 🌟 [จุดแก้ที่ 3] ตรวจสอบเมื่อพิมพ์ครบ 8 ตัว (เดิมเป็น 6 ตัว)
+    if (inputCode.length === 8) {
         if (userDatabase[inputCode]) {
             const currentUser = userDatabase[inputCode];
             
-            // แสดงหน้าต่างต้อนรับตามชื่อที่ตั้งไว้
             alert("ยินดีต้อนรับคุณ " + currentUser.name);
             
-            // นำข้อความอวยพรเฉพาะของรหัสนั้น ไปใส่ในหน้าแสดงข้อความ
             const msgElement = document.getElementById('message-text');
             if (msgElement) {
                 msgElement.innerText = currentUser.message;
             }
 
-            // ย้ายหน้าไปหน้าปักเทียน
             document.getElementById('password-page').classList.remove('active');
             document.getElementById('candle-page').classList.add('active');
         } else {
             alert("รหัสไม่ถูกต้อง!");
             inputCode = "";
-            document.getElementById('pass-display').innerText = "******";
+            // ตรงนี้เปลี่ยนเป็นอักษรพรางตา 8 ตัวให้เข้ากัน
+            document.getElementById('pass-display').innerText = "********"; 
         }
     }
 }
 
 function deleteKey() {
     inputCode = inputCode.slice(0, -1);
-    document.getElementById('pass-display').innerText = inputCode || "******";
+    document.getElementById('pass-display').innerText = inputCode || "********";
 }
 
 function addCandle(event) {
