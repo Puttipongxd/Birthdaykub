@@ -1,74 +1,74 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>HBD For You</title>
-	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HBD For You</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-	<div class="phone-container">
+    <div class="phone-container">
 
-		<section id="password-page" class="layer active">
-			<h1 class="title">Happy birthday</h1>
-			<div class="cake-box">
-				<img src="images/cake.png" class="main-cake" alt="Cake"> 
-			</div>
-			<div class="display" id="pass-display">******</div>
-			<div class="hint-text">กรุณาใส่รหัสผ่าน<br>คำใบ้ : วันนี้วันอะไรน้า</div>
-			<div class="keypad">
-				<button onclick="pressKey('1')">1</button>
-				<button onclick="pressKey('2')">2</button>
-				<button onclick="pressKey('3')">3</button>
-				<button onclick="pressKey('4')">4</button>
-				<button onclick="pressKey('5')">5</button>
-				<button onclick="pressKey('6')">6</button>
-				<button onclick="pressKey('7')">7</button>
-				<button onclick="pressKey('8')">8</button>
-				<button onclick="pressKey('9')">9</button>
-				<button onclick="pressKey('*')">*</button>
-				<button onclick="pressKey('0')">0</button>
-				<button onclick="deleteKey()" style="color: #ff6b6b;">⌫</button>
-			</div>
-		</section>
+        <section id="password-page" class="layer active">
+            <h1 class="title">Happy birthday</h1>
+            <div class="cake-box">
+                <img src="images/cake.png" class="main-cake" alt="Cake"> 
+            </div>
+            <div class="display" id="pass-display">******</div>
+            <div class="hint-text">กรุณาใส่รหัสผ่าน<br>คำใบ้ : วันนี้วันอะไรน้า</div>
+            <div class="keypad">
+                <button onclick="pressKey('1')">1</button>
+                <button onclick="pressKey('2')">2</button>
+                <button onclick="pressKey('3')">3</button>
+                <button onclick="pressKey('4')">4</button>
+                <button onclick="pressKey('5')">5</button>
+                <button onclick="pressKey('6')">6</button>
+                <button onclick="pressKey('7')">7</button>
+                <button onclick="pressKey('8')">8</button>
+                <button onclick="pressKey('9')">9</button>
+                <button onclick="pressKey('*')">*</button>
+                <button onclick="pressKey('0')">0</button>
+                <button onclick="deleteKey()" style="color: #ff6b6b;">⌫</button>
+            </div>
+        </section>
 
-		<section id="candle-page" class="layer">
-			<div class="hint-text" id="candle-hint">กดที่เค้กสิ!</div>
-			<div class="cake-container" onclick="addCandle(event)">
-				<img src="images/cake_4.png" id="cake-to-stick" alt="Cake">
-				<div id="candle-area"></div>
-				<div id="envelope-wrapper" class="hidden" onclick="openLetter(event)">
-					<img src="images/message1.png" id="envelope-img" alt="Envelope">
-					<div class="tap-hint">เปิดเลย</div>
-				</div>
-			</div>
-			<div class="hint-text" style="margin-top: 20px;" id="bottom-hint">มาปักเทียนกัน</div>
-		</section>
+        <section id="candle-page" class="layer">
+            <div class="hint-text" id="candle-hint">กดที่เค้กสิ!</div>
+            <div class="cake-container" onclick="addCandle(event)">
+                <img src="images/cake_4.png" id="cake-to-stick" alt="Cake">
+                <div id="candle-area"></div>
+                <div id="envelope-wrapper" class="hidden" onclick="openLetter(event)">
+                    <img src="images/message1.png" id="envelope-img" alt="Envelope">
+                    <div class="tap-hint">เปิดเลย</div>
+                </div>
+            </div>
+            <div class="hint-text" style="margin-top: 20px;" id="bottom-hint">มาปักเทียนกัน</div>
+        </section>
 
-		<section id="message-page" class="layer">
-			<div class="envelope-container">
-				<div class="envelope-wrapper">
-					<div class="envelope-lid"></div>
-					<div class="letter-card">
-						<div class="letter-inner">
-							<div class="letter-header">🎂 Happy birthday ✨</div>
-							<div class="letter-body">
-								
-								<p>สุขสันต์วันเกิดปีนี้20เเล้วนะ 
-									ขอให้มีเเต่สิ่งดีๆเข้ามาในชีวิตนะ ขอให้ปีนี้มีเเต่รอยยิ้มนะ หวังว่าสิ่งนี้ทําให้เธอยิ้มได้นะ :3 </p>  <!-- <p>คําอวยพรวันเกิด</p> -->
-								<p style="font-weight: bold; margin-top: 15px; color: #ff6b6b;">สุขสันต์วันเกิดนะ 🤍</p>
-							</div>
-						</div>
-					</div>
-					<div class="envelope-front"></div>
-				</div>
-			</div>
-		</section>
+        <section id="message-page" class="layer">
+            <div class="envelope-container">
+                <div class="envelope-wrapper">
+                    <div class="envelope-lid"></div>
+                    <div class="letter-card">
+                        <div class="letter-inner">
+                            <div class="letter-header">🎂 Happy birthday ✨</div>
+                            <div class="letter-body">
+                                <p id="message-text">
+                                    สุขสันต์วันเกิดปีนี้ 20 แล้วนะ ขอให้มีแต่สิ่งดีๆ เข้ามาในชีวิต ขอให้ปีนี้มีแต่รอยยิ้มนะ หวังว่าสิ่งนี้จะทำให้เธอยิ้มได้นะ :3
+                                </p>
+                                <p style="font-weight: bold; margin-top: 15px; color: #ff6b6b;">สุขสันต์วันเกิดนะ 🤍</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="envelope-front"></div>
+                </div>
+            </div>
+        </section>
 
-	</div>
+    </div>
 
-	<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
